@@ -380,7 +380,7 @@ export default function Home() {
                       transition={{ duration: 0.5, delay: 0.3 }}
                     >
                       <h2 className="text-lg font-semibold mb-3 text-[#F4C542]">
-                        Presale Status
+                        Private sale status
                       </h2>
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         {[
