@@ -40,7 +40,6 @@ Contributions are welcome! Please open an issue to discuss proposed changes or s
 
 #### Clone Starter File
 
-git clone https://github.com/viveknarula1980/solana-ico-dapp.git
 
 npm i
 
