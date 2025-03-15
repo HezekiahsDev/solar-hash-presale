@@ -301,15 +301,15 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-900 to-indigo-900 text-white flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-[#09463F] via-[#0A4942] to-[#F4C542] text-white flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-12">
       <div className="relative max-w-xl mx-auto">
-        <div className="relative px-6 py-10 bg-gradient-to-r from-purple-700 to-indigo-800 shadow-lg rounded-3xl sm:p-12">
+        <div className="relative px-6 py-10 bg-[#0A4942] shadow-lg rounded-3xl sm:p-12 border border-[#F4C542]/50">
           <div className="max-w-md mx-auto">
-            <div className="divide-y divide-gray-300/50">
+            <div className="divide-y divide-[#094740]">
               {/* Header Section */}
               <div className="pb-8">
                 <div className="flex justify-between items-center">
-                  <h1 className="text-2xl sm:text-3xl font-bold">
+                  <h1 className="text-2xl sm:text-3xl font-bold text-[#F4C542]">
                     SolarHashToken Presale
                   </h1>
                   <WalletMultiButton />
@@ -324,13 +324,13 @@ export default function Home() {
                       Status:{" "}
                       <span
                         className={`font-semibold ${
-                          isAdmin ? "text-green-400" : "text-blue-400"
+                          isAdmin ? "text-[#E58E26]" : "text-blue-400"
                         }`}
                       >
                         {isAdmin ? "Admin" : "User"}
                       </span>
                     </p>
-                    <p className="mt-2 rounded-lg">
+                    <p className="mt-2">
                       <span className="text-gray-300">Your Token Balance:</span>{" "}
                       <span className="font-semibold text-white">
                         {userTokenBalance
@@ -348,8 +348,8 @@ export default function Home() {
                 <div className="py-8">
                   {/* ICO Status Display */}
                   {icoData ? (
-                    <div className="mb-8 p-4 rounded-lg border border-gray-400/50">
-                      <h2 className="text-lg font-semibold mb-3">
+                    <div className="mb-8 p-4 rounded-lg border border-[#E58E26]/50 bg-[#094740]/30">
+                      <h2 className="text-lg font-semibold mb-3 text-[#F4C542]">
                         Presale Status
                       </h2>
                       <div className="grid grid-cols-2 gap-4 text-sm">
@@ -387,8 +387,8 @@ export default function Home() {
                     </div>
                   ) : (
                     isAdmin && (
-                      <div className="mb-8 p-4 bg-yellow-600/20 rounded-lg border border-yellow-400">
-                        <p className="text-yellow-400">
+                      <div className="mb-8 p-4 bg-[#F4C542]/20 rounded-lg border border-[#F4C542]">
+                        <p className="text-[#E58E26]">
                           A presale phase needs to be initialized
                         </p>
                       </div>
@@ -408,14 +408,14 @@ export default function Home() {
                             : "Amount of tokens to initialize"
                           : "Amount of tokens to buy"
                       }
-                      className="w-full p-3 border rounded-lg text-black focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                      className="w-full p-3 border rounded-lg text-black focus:ring-2 focus:ring-[#F4C542] focus:border-[#F4C542]"
                       min="1"
                       step="1"
                     />
 
                     {/* Cost Display for Users */}
                     {amount && !isAdmin && (
-                      <div className="p-4 bg-blue-600/20 rounded-lg border border-blue-400 space-y-2">
+                      <div className="p-4 bg-[#E58E26]/20 rounded-lg border border-[#E58E26] space-y-2">
                         <div className="flex justify-between">
                           <span>Token Amount:</span>
                           <span className="font-medium">{amount} tokens</span>
@@ -448,7 +448,7 @@ export default function Home() {
                             <button
                               onClick={createIcoAta}
                               disabled={loading}
-                              className="w-full p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-500 transition"
+                              className="w-full p-3 bg-[#F4C542] text-black font-semibold rounded-lg hover:bg-[#E58E26] disabled:bg-gray-500 transition"
                             >
                               {loading
                                 ? "Initializing..."
@@ -460,14 +460,14 @@ export default function Home() {
                               <button
                                 onClick={depositIco}
                                 disabled={loading}
-                                className="w-full p-3 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:bg-gray-500 transition"
+                                className="w-full p-3 bg-[#F4C542] text-black font-semibold rounded-lg hover:bg-[#E58E26] disabled:bg-gray-500 transition"
                               >
                                 {loading ? "Depositing..." : "Deposit Tokens"}
                               </button>
                               <button
                                 onClick={buyTokens}
                                 disabled={loading || !icoData}
-                                className="w-full p-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:bg-gray-500 transition"
+                                className="w-full p-3 bg-[#E58E26] text-white font-semibold rounded-lg hover:bg-[#F4C542] disabled:bg-gray-500 transition"
                               >
                                 {loading ? "Processing..." : "Buy Tokens"}
                               </button>
@@ -478,7 +478,7 @@ export default function Home() {
                         <button
                           onClick={buyTokens}
                           disabled={loading || !icoData}
-                          className="w-full p-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:bg-gray-500 transition"
+                          className="w-full p-3 bg-[#E58E26] text-white font-semibold rounded-lg hover:bg-[#F4C542] disabled:bg-gray-500 transition"
                         >
                           {loading ? "Processing..." : "Buy Tokens"}
                         </button>
