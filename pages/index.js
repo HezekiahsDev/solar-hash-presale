@@ -1,5 +1,9 @@
 // pages/index.js
 import React, { useState, useEffect } from "react";
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import {
@@ -52,6 +56,14 @@ export default function Home() {
       fetchUserTokenBalance();
     }
   }, [wallet.connected]);
+
+  //useEffect for AOS initialization
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false,
+    });
+  }, []);
 
   const getProgram = () => {
     if (!wallet.connected) return null;
@@ -301,18 +313,31 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#09463F] via-[#0A4942] to-[#F4C542] text-white flex flex-col justify-center px-4 sm:px-6 lg:px-8 py-12">
-      <div className="relative max-w-xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-[#09463F] via-[#0A4942] to-[#F4C542] text-white flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative max-w-xl mx-0" data-aos="fade-up">
         <div className="relative px-6 py-10 bg-[#0A4942] shadow-lg rounded-3xl sm:p-12 border border-[#F4C542]/50">
           <div className="max-w-md mx-auto">
             <div className="divide-y divide-[#094740]">
               {/* Header Section */}
+              {/* Header Section */}
               <div className="pb-8">
                 <div className="flex justify-between items-center">
-                  <h1 className="text-2xl sm:text-3xl font-bold text-[#F4C542]">
+                  {/* Use motion.h1 for text animation */}
+                  <motion.h1
+                    className="text-xl font-bold text-[#F4C542]"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
                     SolarHashToken Presale
-                  </h1>
-                  <WalletMultiButton />
+                  </motion.h1>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                  >
+                    <WalletMultiButton />
+                  </motion.div>
                 </div>
                 {wallet.connected && (
                   <div className="mt-4 text-sm text-gray-200">
@@ -348,7 +373,12 @@ export default function Home() {
                 <div className="py-8">
                   {/* ICO Status Display */}
                   {icoData ? (
-                    <div className="mb-8 p-4 rounded-lg border border-[#E58E26]/50 bg-[#094740]/30">
+                    <motion.div
+                      className="mb-8 p-4 rounded-lg border border-[#E58E26]/50 bg-[#094740]/30"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.5, delay: 0.3 }}
+                    >
                       <h2 className="text-lg font-semibold mb-3 text-[#F4C542]">
                         Presale Status
                       </h2>
@@ -376,15 +406,20 @@ export default function Home() {
                               : "0",
                           },
                         ].map(({ label, value }, i) => (
-                          <div key={i}>
+                          <motion.div
+                            key={i}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.3, delay: 0.4 + i * 0.1 }}
+                          >
                             <p className="text-gray-300">{label}</p>
                             <p className="font-medium text-white">
                               {value} tokens
                             </p>
-                          </div>
+                          </motion.div>
                         ))}
                       </div>
-                    </div>
+                    </motion.div>
                   ) : (
                     isAdmin && (
                       <div className="mb-8 p-4 bg-[#F4C542]/20 rounded-lg border border-[#F4C542]">
@@ -397,25 +432,36 @@ export default function Home() {
 
                   {/* Action Section */}
                   <div className="space-y-4">
-                    <input
-                      type="number"
-                      value={amount}
-                      onChange={(e) => setAmount(e.target.value)}
-                      placeholder={
-                        isAdmin
-                          ? icoData
-                            ? "Amount of tokens to deposit"
-                            : "Amount of tokens to initialize"
-                          : "Amount of tokens to buy"
-                      }
-                      className="w-full p-3 border rounded-lg text-black focus:ring-2 focus:ring-[#F4C542] focus:border-[#F4C542]"
-                      min="1"
-                      step="1"
-                    />
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.5 }}
+                    >
+                      <input
+                        type="number"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                        placeholder={
+                          isAdmin
+                            ? icoData
+                              ? "Amount of tokens to deposit"
+                              : "Amount of tokens to initialize"
+                            : "Amount of tokens to buy"
+                        }
+                        className="w-full p-3 border rounded-lg text-black focus:ring-2 focus:ring-[#F4C542] focus:border-[#F4C542]"
+                        min="1"
+                        step="1"
+                      />
+                    </motion.div>
 
                     {/* Cost Display for Users */}
                     {amount && !isAdmin && (
-                      <div className="p-4 bg-[#E58E26]/20 rounded-lg border border-[#E58E26] space-y-2">
+                      <motion.div
+                        className="p-4 bg-[#E58E26]/20 rounded-lg border border-[#E58E26] space-y-2"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        transition={{ duration: 0.4 }}
+                      >
                         <div className="flex justify-between">
                           <span>Token Amount:</span>
                           <span className="font-medium">{amount} tokens</span>
@@ -437,7 +483,7 @@ export default function Home() {
                             SOL
                           </span>
                         </div>
-                      </div>
+                      </motion.div>
                     )}
 
                     {/* Action Buttons */}
