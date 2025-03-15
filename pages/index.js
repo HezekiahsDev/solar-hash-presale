@@ -320,11 +320,11 @@ export default function Home() {
             <div className="divide-y divide-[#094740]">
               {/* Header Section */}
               {/* Header Section */}
-              <div className="pb-8">
+              <div className="">
                 <div className="flex justify-between items-center">
                   {/* Use motion.h1 for text animation */}
                   <motion.h1
-                    className="text-xl font-bold text-[#F4C542]"
+                    className="text-lg font-bold text-[#F4C542]"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
@@ -340,7 +340,7 @@ export default function Home() {
                   </motion.div>
                 </div>
                 {wallet.connected && (
-                  <div className="mt-4 text-sm text-gray-200">
+                  <div className="text-sm text-gray-200">
                     <p>
                       Wallet: {wallet.publicKey.toString().slice(0, 8)}...
                       {wallet.publicKey.toString().slice(-8)}
@@ -370,11 +370,11 @@ export default function Home() {
 
               {/* Main Content */}
               {wallet.connected ? (
-                <div className="py-8">
+                <div className="py-4">
                   {/* ICO Status Display */}
                   {icoData ? (
                     <motion.div
-                      className="mb-8 p-4 rounded-lg border border-[#E58E26]/50 bg-[#094740]/30"
+                      className="mb-4 p-4 rounded-lg border border-[#E58E26]/50 bg-[#094740]/30"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.5, delay: 0.3 }}
@@ -400,7 +400,7 @@ export default function Home() {
                             ).toString(),
                           },
                           {
-                            label: "Your Balance",
+                            label: "Your SHTP Balance",
                             value: userTokenBalance
                               ? (Number(userTokenBalance) / 1e9).toFixed(2)
                               : "0",
@@ -487,62 +487,88 @@ export default function Home() {
                     )}
 
                     {/* Action Buttons */}
-                    <div className="space-y-3">
+                    <div
+                      className="space-y-3"
+                      data-aos="fade-up"
+                      data-aos-delay="200"
+                    >
                       {isAdmin ? (
                         <>
                           {!icoData && (
-                            <button
+                            <motion.button
                               onClick={createIcoAta}
                               disabled={loading}
                               className="w-full p-3 bg-[#F4C542] text-black font-semibold rounded-lg hover:bg-[#E58E26] disabled:bg-gray-500 transition"
+                              whileHover={{ scale: 1.03 }}
+                              whileTap={{ scale: 0.98 }}
                             >
                               {loading
                                 ? "Initializing..."
                                 : "Initialize Presale"}
-                            </button>
+                            </motion.button>
                           )}
                           {icoData && (
                             <>
-                              <button
+                              <motion.button
                                 onClick={depositIco}
                                 disabled={loading}
                                 className="w-full p-3 bg-[#F4C542] text-black font-semibold rounded-lg hover:bg-[#E58E26] disabled:bg-gray-500 transition"
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.98 }}
                               >
                                 {loading ? "Depositing..." : "Deposit Tokens"}
-                              </button>
-                              <button
+                              </motion.button>
+                              <motion.button
                                 onClick={buyTokens}
                                 disabled={loading || !icoData}
                                 className="w-full p-3 bg-[#E58E26] text-white font-semibold rounded-lg hover:bg-[#F4C542] disabled:bg-gray-500 transition"
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.98 }}
                               >
                                 {loading ? "Processing..." : "Buy Tokens"}
-                              </button>
+                              </motion.button>
                             </>
                           )}
                         </>
                       ) : (
-                        <button
+                        <motion.button
                           onClick={buyTokens}
                           disabled={loading || !icoData}
                           className="w-full p-3 bg-[#E58E26] text-white font-semibold rounded-lg hover:bg-[#F4C542] disabled:bg-gray-500 transition"
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.98 }}
                         >
                           {loading ? "Processing..." : "Buy Tokens"}
-                        </button>
+                        </motion.button>
                       )}
                     </div>
 
                     {/* Transaction Status */}
                     {loading && (
-                      <div className="text-center animate-pulse text-gray-300">
+                      <motion.div
+                        className="text-center text-gray-300"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{
+                          duration: 0.3,
+                          repeat: Infinity,
+                          repeatType: "reverse",
+                        }}
+                      >
                         Processing transaction...
-                      </div>
+                      </motion.div>
                     )}
                   </div>
                 </div>
               ) : (
-                <div className="py-8 text-center text-lg font-medium text-gray-200">
+                <motion.div
+                  className="text-lg font-medium text-gray-200"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
                   Please connect your wallet to continue
-                </div>
+                </motion.div>
               )}
             </div>
           </div>
