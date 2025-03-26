@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token::{self, Mint, Token, TokenAccount};
 
-declare_id!("Dgj9VG7yLhft27tJwwjyHfjiBnj4cfwbg6uCpjdU9srA");
+declare_id!("3Gp1d8YqtoyuEyEQADpEambzsyJGHp1usHhctPW2WAzv");
 
 #[error_code]
 pub enum ErrorCode {
@@ -13,7 +13,7 @@ pub enum ErrorCode {
 
 #[program]
 pub mod ico {
-    pub const ICO_MINT_ADDRESS: &str = "E1H8fAGzzTaFuvW57gCzVcf7CxFsq4qtuyBdFLJ1nzNy";
+    pub const ICO_MINT_ADDRESS: &str = "C9sVQK2Ehb2jApnmBWrZTfK1pjDVnrRUkj4F57gqsuYX";
     pub const LAMPORTS_PER_TOKEN: u64 = 50_000_000; // 0.05 SOL in lamports
     pub const TOKEN_DECIMALS: u64 = 1_000_000_000; // 10^9 for SPL token decimals
     use super::*;
@@ -81,11 +81,6 @@ pub mod ico {
             .checked_mul(TOKEN_DECIMALS)
             .ok_or(ErrorCode::Overflow)?;
 
-        // Calculate 20% of tokens to be sent
-        let raw_token_amount_20 = raw_token_amount
-            .checked_div(5) // Equivalent to multiplying by 0.2
-            .ok_or(ErrorCode::Overflow)?;
-
         // Calculate SOL cost (0.05 SOL per token)
         let sol_amount = token_amount
             .checked_mul(LAMPORTS_PER_TOKEN)
@@ -106,7 +101,7 @@ pub mod ico {
         )?;
         msg!("Transferred {} lamports to admin", sol_amount);
 
-        // Transfer 20% of tokens from program to user
+        // Transfer tokens from program to user using raw amount (with decimals)
         let ico_mint_address = ctx.accounts.ico_mint.key();
         let seeds = &[ico_mint_address.as_ref(), &[_ico_ata_for_ico_program_bump]];
         let signer = [&seeds[..]];
@@ -119,7 +114,7 @@ pub mod ico {
             },
             &signer,
         );
-        token::transfer(cpi_ctx, raw_token_amount_20)?;
+        token::transfer(cpi_ctx, raw_token_amount)?;
 
         // Update tokens sold
         let data = &mut ctx.accounts.data;
@@ -128,13 +123,7 @@ pub mod ico {
             .checked_add(token_amount)
             .ok_or(ErrorCode::Overflow)?;
 
-        // Log the full purchase amount and the actual amount sent
-        msg!(
-            "User purchased {} tokens, but only {} tokens (20%) were sent to the buyer.",
-            token_amount,
-            token_amount / 5
-        );
-
+        msg!("Transferred {} tokens to buyer", token_amount);
         Ok(())
     }
 

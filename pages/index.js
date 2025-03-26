@@ -1,5 +1,6 @@
 // pages/index.js
 import React, { useState, useEffect } from "react";
+import CountdownTimer from "../components/CountDown";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -30,6 +31,7 @@ const WalletMultiButton = dynamic(
     ),
   { ssr: false }
 );
+const endTime = new Date("2025-04-01T00:00:00Z").getTime();
 
 const ENV_PROGRAM_ID = process.env.NEXT_PUBLIC_PROGRAM_ID;
 const ENV_ICO_MINT = process.env.NEXT_PUBLIC_ICO_MINT;
@@ -279,7 +281,7 @@ export default function Home() {
         })
         .rpc();
 
-      alert(`Successfully purchased ${amount} tokens!`);
+      alert(`Successfully purchased ${amount} tokens! 20% has been released`);
       await fetchIcoData();
       await fetchUserTokenBalance();
     } catch (error) {
@@ -331,6 +333,7 @@ export default function Home() {
                   >
                     SolarHashToken Presale
                   </motion.h1>
+
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -379,9 +382,11 @@ export default function Home() {
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.5, delay: 0.3 }}
                     >
-                      <h2 className="text-lg font-semibold mb-3 text-[#F4C542]">
+                      <h2 className="text-lg font-semibold text-[#F4C542]">
                         Private sale status
                       </h2>
+                      {/* Countdown Timer */}
+                      <CountdownTimer targetDate={icoData.endTime} />
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         {[
                           {
