@@ -397,7 +397,7 @@ export default function Home() {
                             label: "Tokens Sold",
                             value: icoData.tokensSold.toString(),
                           },
-                          { label: "Token Price", value: "0.05 SOL" },
+                          { label: "Token Price", value: "0.0005 SOL" },
                           {
                             label: "Available",
                             value: (
