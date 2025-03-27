@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token::{self, Mint, Token, TokenAccount};
 
-declare_id!("37z7CkcNy9TEzxVtNC84ptvYLY2ADdPY1WPpQvTrDLhh");
+declare_id!("4RqSBR4sXXtbrJLN9J2LkaU2vUKuXwvM4YPekAUxLk6C");
 
 #[error_code]
 pub enum ErrorCode {
@@ -249,3 +249,4 @@ pub mod ico {
         pub tokens_sold: u64,
     }
 }
+
